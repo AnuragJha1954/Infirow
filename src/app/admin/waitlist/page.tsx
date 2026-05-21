@@ -18,7 +18,8 @@ export default async function AdminWaitlistPage() {
   let emails: string[] = [];
   
   try {
-    if (process.env.POSTGRES_URL) {
+    const dbUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+    if (dbUrl) {
       await sql`CREATE TABLE IF NOT EXISTS waitlist (id SERIAL PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;
       const result = await sql`SELECT email FROM waitlist ORDER BY id ASC;`;
       emails = result.rows.map(r => r.email);

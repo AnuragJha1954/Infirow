@@ -13,7 +13,8 @@ export async function POST(request: Request) {
     }
 
     // 1. Store the email (Postgres if available, else local JSON fallback)
-    if (process.env.POSTGRES_URL) {
+    const dbUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+    if (dbUrl) {
       try {
         // Ensure table exists
         await sql`CREATE TABLE IF NOT EXISTS waitlist (id SERIAL PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;

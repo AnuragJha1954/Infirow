@@ -6,8 +6,9 @@ import { sql } from '@vercel/postgres';
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
+    const dbUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;
     
-    if (process.env.POSTGRES_URL) {
+    if (dbUrl) {
       await sql`CREATE TABLE IF NOT EXISTS waitlist (id SERIAL PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;
       await sql`INSERT INTO waitlist (email) VALUES (${email}) ON CONFLICT (email) DO NOTHING;`;
       const result = await sql`SELECT email FROM waitlist ORDER BY id ASC;`;
@@ -34,8 +35,9 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const { oldEmail, newEmail } = await request.json();
+    const dbUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;
     
-    if (process.env.POSTGRES_URL) {
+    if (dbUrl) {
       await sql`UPDATE waitlist SET email = ${newEmail} WHERE email = ${oldEmail};`;
       const result = await sql`SELECT email FROM waitlist ORDER BY id ASC;`;
       return NextResponse.json({ success: true, waitlist: result.rows.map(r => r.email) });
@@ -60,8 +62,9 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { email } = await request.json();
+    const dbUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;
     
-    if (process.env.POSTGRES_URL) {
+    if (dbUrl) {
       await sql`DELETE FROM waitlist WHERE email = ${email};`;
       const result = await sql`SELECT email FROM waitlist ORDER BY id ASC;`;
       return NextResponse.json({ success: true, waitlist: result.rows.map(r => r.email) });
