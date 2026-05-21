@@ -1,0 +1,59 @@
+.socialProofSection {
+  background-color: var(--surface-1);
+  color: var(--text-primary);
+  padding: 120px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.counter {
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 200;
+  line-height: 1;
+  margin-bottom: 16px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mutedText {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.4s ease;
+}
+
+.avatarCluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--surface-1);
+  transition: border-color 0.4s ease;
+}
+
+.clusterText {
+  margin-left: 16px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 400;
+  transition: color 0.4s ease;
+}
